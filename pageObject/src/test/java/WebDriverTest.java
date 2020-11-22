@@ -16,6 +16,7 @@ public class WebDriverTest {
 
     @BeforeMethod (alwaysRun = true)
     public void browserSetup() {
+        System.setProperty("webdriver.chrome.driver", "D:\\webdrivers\\chromedriver.exe");
         driver = new ChromeDriver();
     }
 
@@ -44,8 +45,8 @@ public class WebDriverTest {
     public void registrationIsFailed() {
         driver.get("https://www.lcwaikiki.by/ru-RU/BY/register");
         RegistrationPage registrationPage = new RegistrationPage(driver);
-        registrationPage.registerUserWithRegisteredEmail("Darya Miss", "dashkam2000minsk@gmail.com", "12345asd", "12345asd");
-        Assert.assertEquals(driver.findElement(By.cssSelector("[for='RegisterFormView_RegisterEmail']")).getText(), "Адрес эл почты ранее зарегистрирован. (Забыли пароль?)");
+        WebElement message = registrationPage.registerUserWithRegisteredEmail("Darya Miss", "dashkam2000minsk@gmail.com", "12345asd", "12345asd");
+        Assert.assertEquals(message.getText(), "Адрес эл почты ранее зарегистрирован. (Забыли пароль?)");
     }
 
     @AfterMethod (alwaysRun = true)
